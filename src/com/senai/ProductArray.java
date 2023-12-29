@@ -32,9 +32,14 @@ public class ProductArray {
          opcao = menu(entrada);
          
          switch (opcao) {
+             case 1:
+                 inserirProduto(entrada);
+                 break;
              case 9:
                  System.out.println("FIM PROGRAMA");
                  break;
+             default:
+                 System.out.println("Opção inválida.");
                          
          }
     }          
@@ -42,8 +47,7 @@ public class ProductArray {
     
         
     }
-    
-    // Login 
+        
     public static boolean login(Scanner entrada) {        
     
     String userDataBase = "admin";
@@ -116,11 +120,83 @@ public class ProductArray {
                     throw new Exception();                    
                 }
             } catch (Exception e) {
-                System.out.println("Entrada inválida, digite novamente... ");
+                System.out.println("Entrada inválida, tente novamente... ");
             }
         }
         
         return opcao;
+        
+    }
+    
+    public static boolean inserirProduto(Scanner entrada) {
+        
+        boolean produtoInserido = false;
+        ProductArray.contadorProdutos = 0;
+        String produto;
+        int produtoClassificacao = 1;
+        
+        
+        while(!produtoInserido) {
+            
+            System.out.println("");
+            System.out.println("Informe o nome do produto: ");
+            
+            try {
+                produto = entrada.nextLine();
+
+                if (!produto.equals("") || !produto.equals(" ")) {
+                    
+                    System.out.println("");
+                    System.out.println("---------- CLASSIFICAÇÃO PRODUTO ----------");
+                    System.out.println("");
+                    System.out.println("""
+                               [1] Premium line
+                               [2] Regular line
+                               [3] Second line 
+                               """);
+                    System.out.println("-------------------------------------------");
+                    System.out.println("");
+                    
+                    try {
+                        produtoClassificacao = entrada.nextInt();
+
+                        if (produtoClassificacao >= 1 || produtoClassificacao <= 3) {
+                            
+                            switch (produtoClassificacao) {
+                                case 1:
+                                    ProductArray.listaClassificacaoProducos.add("Premium line");
+                                    break;
+                                case 2:
+                                    ProductArray.listaClassificacaoProducos.add("Regular line");
+                                    break;
+                                default:
+                                    ProductArray.listaClassificacaoProducos.add("Second line");
+                                    break;
+                            }
+                            
+                            System.out.println("Produto cadastrado com sucesso!");
+                            ProductArray.listaProdutos.add(produto);
+                            produtoInserido = true;
+                            contadorProdutos++;
+
+                        } else {
+                            throw new Exception();
+                        }
+                    } catch (Exception e) {
+                        System.out.println("");
+                    }
+
+                } else {
+                    throw new Exception();
+                }
+            } catch (Exception e) {
+                System.out.println("");
+            }
+                
+            
+        }
+        
+        return produtoInserido;
         
     }
     
