@@ -5,6 +5,7 @@
 package com.senai;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -15,7 +16,7 @@ public class ProductArray {
     
     private static ArrayList<String> listaProdutos = new ArrayList<>();
     private static ArrayList<String> listaClassificacaoProducos = new ArrayList<>();
-    private static ArrayList<String> listaEstoqueProdutos = new ArrayList<>();
+    private static ArrayList<Integer> listaEstoqueProdutos = new ArrayList<>();
     private static int contadorProdutos = 0;
     
     public static void main(String[] args) {
@@ -26,20 +27,21 @@ public class ProductArray {
     login(entrada);  
     
     // menu para opção do usuário
-    int opcao  = 1;
+    int opcao = 1;
     
     while(opcao != 9) {
          opcao = menu(entrada);
          
          switch (opcao) {
-             case 1:
+            case 1:
                  inserirProduto(entrada);
                  break;
-             case 9:
-                 System.out.println("FIM PROGRAMA");
+            case 4:
+                 imprimirProdutos();
                  break;
-             default:
-                 System.out.println("Opção inválida.");
+            case 9:
+                 System.out.println("FIM PROGRAMA");
+                 break;            
                          
          }
     }          
@@ -87,8 +89,7 @@ public class ProductArray {
     public static int menu(Scanner entrada) {
         
         boolean opcaoValida = false;
-        int opcao = 0;
-        String entradaMenu;
+        int opcao = 0;        
         
         while(!opcaoValida) {
             
@@ -111,10 +112,10 @@ public class ProductArray {
             
             try{
                 System.out.println("Digite uma opção do menu: ");
-                entradaMenu = entrada.nextLine();
-                opcao = Integer.parseInt(entradaMenu);
+                opcao = entrada.nextInt();
                 
-                if(opcao >= 0 && opcao <= 8) {
+                
+                if(opcao >= 1 && opcao <= 8) {
                     opcaoValida = true;
                 } else {
                     throw new Exception();                    
@@ -142,7 +143,7 @@ public class ProductArray {
             System.out.println("Informe o nome do produto: ");
             
             try {
-                produto = entrada.nextLine();
+                produto = entrada.next();
 
                 if (!produto.equals("") || !produto.equals(" ")) {
                     
@@ -155,9 +156,10 @@ public class ProductArray {
                                [3] Second line 
                                """);
                     System.out.println("-------------------------------------------");
-                    System.out.println("");
-                    
+                                        
                     try {
+                        System.out.println("");
+                        System.out.println("Digite uma opção de classificação: ");
                         produtoClassificacao = entrada.nextInt();
 
                         if (produtoClassificacao >= 1 || produtoClassificacao <= 3) {
@@ -176,6 +178,7 @@ public class ProductArray {
                             
                             System.out.println("Produto cadastrado com sucesso!");
                             ProductArray.listaProdutos.add(produto);
+                            ProductArray.listaEstoqueProdutos.add(0);
                             produtoInserido = true;
                             contadorProdutos++;
 
@@ -183,20 +186,34 @@ public class ProductArray {
                             throw new Exception();
                         }
                     } catch (Exception e) {
-                        System.out.println("");
+                        System.out.println("Classificação de produto inválida, tente novamente 1");
                     }
 
                 } else {
                     throw new Exception();
                 }
             } catch (Exception e) {
-                System.out.println("");
+                System.out.println("Classificação de produto inválida, tente novamente 2");
             }
                 
             
         }
         
         return produtoInserido;
+        
+    }
+    
+    public static void imprimirProdutos() {
+        
+        System.out.println("Lista de produtos: ");
+        //Collections.sort(ProductArray.listaProdutos);
+        //System.out.println(ProductArray.listaProdutos);
+        
+        for (int i = 0; i < ProductArray.listaProdutos.size(); i++) {
+            
+            System.out.printf("%s | %s \n", i, listaProdutos.get(i));                   
+            
+        }
         
     }
     
