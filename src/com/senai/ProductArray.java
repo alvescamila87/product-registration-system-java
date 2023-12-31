@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.senai;
 
 import java.util.ArrayList;
@@ -15,9 +12,9 @@ import java.util.Scanner;
 public class ProductArray {
     
     private static ArrayList<String> listaProdutos = new ArrayList<>();
-    private static ArrayList<String> listaClassificacaoProducos = new ArrayList<>();
+    private static ArrayList<String> listaClassificacaoProdutos = new ArrayList<>();
     private static ArrayList<Integer> listaEstoqueProdutos = new ArrayList<>();
-    private static int contadorProdutos = 0;
+    private static boolean possuiProdutoCadastrado = false;
     
     public static void main(String[] args) {
         
@@ -37,8 +34,12 @@ public class ProductArray {
                  inserirProduto(entrada);
                  break;
             case 4:
-                 imprimirProdutos();
-                 break;
+                if(possuiProdutoCadastrado) {
+                    imprimirProdutos();
+                } else {
+                    System.out.println("O sistema ainda NÃO possui produtos cadastrados.");
+                }                 
+                break;
             case 9:
                  System.out.println("FIM PROGRAMA");
                  break;            
@@ -131,8 +132,14 @@ public class ProductArray {
     
     public static boolean inserirProduto(Scanner entrada) {
         
+        if(possuiProdutoCadastrado) {
+            imprimirProdutos();
+        } else {
+            System.out.println("Ainda não há produtos cadastrados");
+        }
+        
+        
         boolean produtoInserido = false;
-        ProductArray.contadorProdutos = 0;
         String produto;
         int produtoClassificacao = 1;
         
@@ -166,22 +173,21 @@ public class ProductArray {
                             
                             switch (produtoClassificacao) {
                                 case 1:
-                                    ProductArray.listaClassificacaoProducos.add("Premium line");
+                                    listaClassificacaoProdutos.add("Premium line");
                                     break;
                                 case 2:
-                                    ProductArray.listaClassificacaoProducos.add("Regular line");
+                                    listaClassificacaoProdutos.add("Regular line");
                                     break;
                                 default:
-                                    ProductArray.listaClassificacaoProducos.add("Second line");
+                                    listaClassificacaoProdutos.add("Second line");
                                     break;
                             }
                             
                             System.out.println("Produto cadastrado com sucesso!");
-                            ProductArray.listaProdutos.add(produto);
-                            ProductArray.listaEstoqueProdutos.add(0);
+                            listaProdutos.add(produto);
+                            listaEstoqueProdutos.add(0);
                             produtoInserido = true;
-                            contadorProdutos++;
-
+                            possuiProdutoCadastrado = true;
                         } else {
                             throw new Exception();
                         }
@@ -205,16 +211,27 @@ public class ProductArray {
     
     public static void imprimirProdutos() {
         
-        System.out.println("Lista de produtos: ");
+        System.out.println("ID | CLASSIFICAÇÃO | DESCRIÇÃO DO PRODUTO | QTD EM ESTOQUE");
         //Collections.sort(ProductArray.listaProdutos);
         //System.out.println(ProductArray.listaProdutos);
         
         for (int i = 0; i < ProductArray.listaProdutos.size(); i++) {
             
-            System.out.printf("%s | %s \n", i, listaProdutos.get(i));                   
+            System.out.printf("%s | %s | %s | %s \n", 
+                    i,
+                    listaClassificacaoProdutos.get(i),
+                    listaProdutos.get(i),
+                    listaEstoqueProdutos.get(i)
+            );                   
             
         }
         
     }
+    
+    public static int atualizarProduto(int indiceProduto) {
+        
+        
+        return indiceProduto;
+    } 
     
 }
