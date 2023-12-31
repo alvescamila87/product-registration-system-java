@@ -230,7 +230,10 @@ public class ProductArray {
     
     public static int atualizarProduto(int indiceProduto) {
         
-        
+        System.out.println("");
+        System.out.println("Informe o ID do produto a ser atualizado: ");
+                
+                
         return indiceProduto;
     } 
     
