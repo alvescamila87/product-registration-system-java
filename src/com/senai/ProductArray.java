@@ -33,6 +33,12 @@ public class ProductArray {
             case 1:
                  inserirProduto(entrada);
                  break;
+            case 2: 
+                 if(possuiProdutoCadastrado) {
+                    atualizarProduto(entrada);
+                } else {
+                    System.out.println("O sistema ainda NÃO possui produtos cadastrados.");
+                }
             case 4:
                 if(possuiProdutoCadastrado) {
                     imprimirProdutos();
@@ -193,6 +199,7 @@ public class ProductArray {
                         }
                     } catch (Exception e) {
                         System.out.println("Classificação de produto inválida, tente novamente 1");
+                        entrada.nextLine();
                     }
 
                 } else {
@@ -200,6 +207,7 @@ public class ProductArray {
                 }
             } catch (Exception e) {
                 System.out.println("Classificação de produto inválida, tente novamente 2");
+                entrada.nextLine();
             }
                 
             
@@ -228,13 +236,61 @@ public class ProductArray {
         
     }
     
-    public static int atualizarProduto(int indiceProduto) {
+    public static boolean atualizarProduto(Scanner entrada) {
         
-        System.out.println("");
-        System.out.println("Informe o ID do produto a ser atualizado: ");
+        boolean produtoAtualizado = false;
+        int indiceProduto;
+        String descricaoProduto;
                 
+        if(possuiProdutoCadastrado) {
+            imprimirProdutos();
+        } else {
+            System.out.println("Ainda não há produtos cadastrados");
+        }
+        
+        while(!produtoAtualizado) {
+            
+            System.out.println("");
+            System.out.println("Informe o ID do produto a ser atualizado: ");
+            
+            try{                
+              
+                indiceProduto = entrada.nextInt();
+            
+                if(indiceProduto >= 0 && indiceProduto < listaProdutos.size()) {    
+                    
+                    System.out.println("");
+                    System.out.println("Informe a nova descrição do produto a ser atualizado: ");
+                    
+                    try{                        
+                        descricaoProduto = entrada.next();
+                        
+                        if(!descricaoProduto.equals("") || !descricaoProduto.equals(" ")) {
+                            listaProdutos.set(indiceProduto, descricaoProduto);
+                            produtoAtualizado = true;
+                        } else {
+                            throw new Exception();
+                        }
+                       
+                    } catch (Exception e){
+                        System.out.println("Descrição de produto inválida! Tente novamente... ");
+                        entrada.nextLine();
+                    }                   
+                    
+                    
+                } else {
+                    throw new Exception();
+                }
+              
+            } catch (Exception e) {
+                System.out.println("ID de produto inexistente! Tente novamente... ");
+                entrada.nextLine();
+            }
+            
+        
+        }                
                 
-        return indiceProduto;
+        return produtoAtualizado;
     } 
     
 }
