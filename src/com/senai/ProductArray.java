@@ -34,8 +34,14 @@ public class ProductArray {
                  inserirProduto(entrada);
                  break;
             case 2: 
-                 if(possuiProdutoCadastrado) {
+                if(possuiProdutoCadastrado) {
                     atualizarProduto(entrada);
+                } else {
+                    System.out.println("O sistema ainda NÃO possui produtos cadastrados.");
+                }
+            case 3:
+                if(possuiProdutoCadastrado) {
+                    removerProduto(entrada);
                 } else {
                     System.out.println("O sistema ainda NÃO possui produtos cadastrados.");
                 }
@@ -164,7 +170,7 @@ public class ProductArray {
                     System.out.println("---------- CLASSIFICAÇÃO PRODUTO ----------");
                     System.out.println("");
                     System.out.println("""
-                               [1] Premium line
+                               [1] First line
                                [2] Regular line
                                [3] Second line 
                                """);
@@ -292,5 +298,47 @@ public class ProductArray {
                 
         return produtoAtualizado;
     } 
+    
+    public static boolean removerProduto(Scanner entrada) {
+        
+        boolean produtoRemovido = false;
+        int indiceProduto;
+        
+        if(possuiProdutoCadastrado) {
+            imprimirProdutos();
+        } else {
+            System.out.println("Ainda não há produtos cadastrados;");
+        }
+        
+        while(!produtoRemovido) {
+            
+            System.out.println("");
+            System.out.println("Informe o ID do produto que deseja remover: ");
+            
+            try{
+                
+                indiceProduto = entrada.nextInt();
+                
+                if(indiceProduto >= 0 && indiceProduto < listaProdutos.size()) {
+                    
+                    listaProdutos.remove(indiceProduto);
+                    listaClassificacaoProdutos.remove(indiceProduto);
+                    listaEstoqueProdutos.remove(indiceProduto);
+                    produtoRemovido = true;                    
+                    
+                } else {
+                    throw new Exception();
+                }
+                
+                
+            } catch(Exception e) {
+                System.out.println("ID de produto inexistente. Tente novamente... ");
+            }
+            
+        }
+        
+        return produtoRemovido;
+        
+    }
     
 }
