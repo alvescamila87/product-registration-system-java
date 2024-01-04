@@ -52,6 +52,13 @@ public class ProductArray {
                     System.out.println("O sistema ainda NÃO possui produtos cadastrados.");
                 }                 
                 break;
+            case 7:
+                if(possuiProdutoCadastrado) {
+                    adicionarEstoque(entrada);
+                } else {
+                    System.out.println("O sistema ainda NÃO possui produtos cadastrados.");
+                }
+                break;
             case 9:
                  System.out.println("FIM PROGRAMA");
                  break;            
@@ -185,7 +192,7 @@ public class ProductArray {
                             
                             switch (produtoClassificacao) {
                                 case 1:
-                                    listaClassificacaoProdutos.add("Premium line");
+                                    listaClassificacaoProdutos.add("First line");
                                     break;
                                 case 2:
                                     listaClassificacaoProdutos.add("Regular line");
@@ -225,6 +232,7 @@ public class ProductArray {
     
     public static void imprimirProdutos() {
         
+        System.out.println("");
         System.out.println("ID | CLASSIFICAÇÃO | DESCRIÇÃO DO PRODUTO | QTD EM ESTOQUE");
         //Collections.sort(ProductArray.listaProdutos);
         //System.out.println(ProductArray.listaProdutos);
@@ -333,11 +341,80 @@ public class ProductArray {
                 
             } catch(Exception e) {
                 System.out.println("ID de produto inexistente. Tente novamente... ");
+                entrada.nextLine();
             }
             
         }
         
         return produtoRemovido;
+        
+    }
+    
+    public static boolean adicionarEstoque(Scanner entrada) {
+        
+        boolean estoqueAdicionado = false;
+        int indiceProduto;
+        int quantidadeItens;
+        int quantidadeItensAtual;
+        int quantidadeItensNova;      
+       
+        
+        if(possuiProdutoCadastrado) {
+            imprimirProdutos();
+        } else {
+            System.out.println("Ainda não há produto cadastrado... ");                    
+        }
+        
+        while(!estoqueAdicionado) {
+            
+            System.out.println("");            
+            System.out.println("Informe o ID do produto que deseja adicionar estoque: ");
+            
+            try{
+                indiceProduto = entrada.nextInt();
+                
+                if(indiceProduto >= 0 && indiceProduto < listaProdutos.size()) {
+                    
+                    System.out.println("");            
+                    System.out.printf(
+                            "Informe a quantidade de itens que deseja adicionar estoque do produto %s: ",
+                            listaProdutos.get(indiceProduto)
+                    );
+                    
+                    try {
+                        quantidadeItens = entrada.nextInt();
+                        
+                        if(quantidadeItens == 0) {
+                            System.out.println("Nenhuma quantidade de itens foi adicionada ao produto.");
+                            estoqueAdicionado = true;
+                        } else if (quantidadeItens > 0) {
+                            quantidadeItensAtual = listaEstoqueProdutos.get(indiceProduto);
+                            quantidadeItensNova = quantidadeItensAtual + quantidadeItens;
+                            listaEstoqueProdutos.set(indiceProduto, quantidadeItensNova);
+                            System.out.println("Quantidade de itens adicionada ao produto com sucesso!");
+                            estoqueAdicionado = true;
+                        } else {
+                            throw new Exception();
+                        }                      
+                        
+                        
+                    } catch (Exception e) {
+                        System.out.println("Quantidade de itens inválida. Tente novamente... ");
+                        entrada.nextLine();
+                    }
+                    
+                } else {
+                    throw new Exception();
+                }
+            } catch(Exception e) {
+                System.out.println("ID de produto inexistente. Tente novamente... ");
+                entrada.nextLine();
+            }           
+            
+            
+        }
+        
+        return estoqueAdicionado;
         
     }
     
