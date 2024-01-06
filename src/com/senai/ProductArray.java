@@ -2,6 +2,7 @@ package com.senai;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 /**
@@ -10,57 +11,64 @@ import java.util.Scanner;
  */
 public class ProductArray {
 
-    private static ArrayList<String> listaProdutos = new ArrayList<>();
-    private static ArrayList<String> listaClassificacaoProdutos = new ArrayList<>();
-    private static ArrayList<Integer> listaEstoqueProdutos = new ArrayList<>();
-    private static boolean possuiProdutoCadastrado = false;
+    private static ArrayList<String> productList = new ArrayList<>();
+    private static ArrayList<String> productClassificationList = new ArrayList<>();
+    private static ArrayList<Integer> productInventoryList = new ArrayList<>();
+    private static boolean hasRegisteredProduct = false;
 
     public static void main(String[] args) {
 
-        Scanner entrada = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
 
         // login do usuário
-        login(entrada);
+        login(input);
 
         // menu para opção do usuário
         int opcao = 1;
 
         while (opcao != 9) {
-            opcao = menu(entrada);
+            opcao = menu(input);
 
             switch (opcao) {
                 case 1:
-                    inserirProduto(entrada);
+                    insertProduct(input);
                     break;
                 case 2:
-                    if (possuiProdutoCadastrado) {
-                        atualizarProduto(entrada);
+                    if (hasRegisteredProduct) {
+                        updateProduct(input);
                     } else {
                         System.out.println("O sistema ainda NÃO possui produtos cadastrados.");
                     }
                 case 3:
-                    if (possuiProdutoCadastrado) {
-                        removerProduto(entrada);
+                    if (hasRegisteredProduct) {
+                        removeProduct(input);
                     } else {
                         System.out.println("O sistema ainda NÃO possui produtos cadastrados.");
                     }
                 case 4:
-                    if (possuiProdutoCadastrado) {
-                        imprimirProdutos();
+                    if (hasRegisteredProduct) {
+                        printProduct();
+                    } else {
+                        System.out.println("O sistema ainda NÃO possui produtos cadastrados.");
+                    }
+                    break;
+                case 5:
+                    if (hasRegisteredProduct) {
+                        printProductSorting(input);
                     } else {
                         System.out.println("O sistema ainda NÃO possui produtos cadastrados.");
                     }
                     break;
                 case 7:
-                    if (possuiProdutoCadastrado) {
-                        adicionarEstoque(entrada);
+                    if (hasRegisteredProduct) {
+                        addInventory(input);
                     } else {
                         System.out.println("O sistema ainda NÃO possui produtos cadastrados.");
                     }
                     break;
                 case 8:
-                    if (possuiProdutoCadastrado) {
-                        removerEstoque(entrada);
+                    if (hasRegisteredProduct) {
+                        removedInventory(input);
                     } else {
                         System.out.println("O sistema ainda NÃO possui produtos cadastrados.");
                     }
@@ -80,9 +88,9 @@ public class ProductArray {
         String passwordDataBase = "12345";
         String user = "";
         String password = "";
-        boolean loginValido = false;
+        boolean loginValid = false;
 
-        while (!loginValido) {
+        while (!loginValid) {
 
             try {
                 System.out.println("");
@@ -94,7 +102,7 @@ public class ProductArray {
                 password = entrada.nextLine();
 
                 if (userDataBase.equals(user) && passwordDataBase.equals(password)) {
-                    loginValido = true;
+                    loginValid = true;
                 } else {
                     throw new Exception();
                 }
@@ -105,16 +113,16 @@ public class ProductArray {
 
         }
 
-        return loginValido;
+        return loginValid;
 
     }
 
-    public static int menu(Scanner entrada) {
+    public static int menu(Scanner input) {
 
-        boolean opcaoValida = false;
-        int opcao = 0;
+        boolean optionValid = false;
+        int option = 0;
 
-        while (!opcaoValida) {
+        while (!optionValid) {
 
             System.out.println("");
             System.out.println("------------------ MENU ------------------");
@@ -135,10 +143,10 @@ public class ProductArray {
 
             try {
                 System.out.println("Digite uma opção do menu: ");
-                opcao = entrada.nextInt();
+                option = input.nextInt();
 
-                if (opcao >= 1 && opcao <= 8) {
-                    opcaoValida = true;
+                if (option >= 1 && option <= 8) {
+                    optionValid = true;
                 } else {
                     throw new Exception();
                 }
@@ -147,31 +155,31 @@ public class ProductArray {
             }
         }
 
-        return opcao;
+        return option;
 
     }
 
-    public static boolean inserirProduto(Scanner entrada) {
+    public static boolean insertProduct(Scanner input) {
 
-        if (possuiProdutoCadastrado) {
-            imprimirProdutos();
+        if (hasRegisteredProduct) {
+            printProduct();
         } else {
             System.out.println("Ainda não há produtos cadastrados");
         }
 
-        boolean produtoInserido = false;
-        String produto;
-        int produtoClassificacao = 1;
+        boolean insertedProduct = false;
+        String product;
+        int classificationProduct = 1;
 
-        while (!produtoInserido) {
+        while (!insertedProduct) {
 
             System.out.println("");
             System.out.println("Informe o nome do produto: ");
 
             try {
-                produto = entrada.next();
+                product = input.next();
 
-                if (!produto.equals("") || !produto.equals(" ")) {
+                if (!product.equals("") || !product.equals(" ")) {
 
                     System.out.println("");
                     System.out.println("---------- CLASSIFICAÇÃO PRODUTO ----------");
@@ -186,33 +194,33 @@ public class ProductArray {
                     try {
                         System.out.println("");
                         System.out.println("Digite uma opção de classificação: ");
-                        produtoClassificacao = entrada.nextInt();
+                        classificationProduct = input.nextInt();
 
-                        if (produtoClassificacao >= 1 || produtoClassificacao <= 3) {
+                        if (classificationProduct >= 1 || classificationProduct <= 3) {
 
-                            switch (produtoClassificacao) {
+                            switch (classificationProduct) {
                                 case 1:
-                                    listaClassificacaoProdutos.add("First line");
+                                    productClassificationList.add("First line");
                                     break;
                                 case 2:
-                                    listaClassificacaoProdutos.add("Regular line");
+                                    productClassificationList.add("Regular line");
                                     break;
                                 default:
-                                    listaClassificacaoProdutos.add("Second line");
+                                    productClassificationList.add("Second line");
                                     break;
                             }
 
                             System.out.println("Produto cadastrado com sucesso!");
-                            listaProdutos.add(produto);
-                            listaEstoqueProdutos.add(0);
-                            produtoInserido = true;
-                            possuiProdutoCadastrado = true;
+                            productList.add(product);
+                            productInventoryList.add(0);
+                            insertedProduct = true;
+                            hasRegisteredProduct = true;
                         } else {
                             throw new Exception();
                         }
                     } catch (Exception e) {
                         System.out.println("Classificação de produto inválida, tente novamente 1");
-                        entrada.nextLine();
+                        input.nextLine();
                     }
 
                 } else {
@@ -220,74 +228,122 @@ public class ProductArray {
                 }
             } catch (Exception e) {
                 System.out.println("Classificação de produto inválida, tente novamente 2");
-                entrada.nextLine();
+                input.nextLine();
             }
 
         }
 
-        return produtoInserido;
+        return insertedProduct;
 
     }
 
-    public static void imprimirProdutos() {
+    public static void printProduct() {
 
         System.out.println("");
         System.out.println("ID | CLASSIFICAÇÃO | DESCRIÇÃO DO PRODUTO | QTD EM ESTOQUE");
-        //Collections.sort(ProductArray.listaProdutos);
-        //System.out.println(ProductArray.listaProdutos);
+        //Collections.sort(ProductArray.productList);
+        //System.out.println(ProductArray.productList);
 
-        for (int i = 0; i < ProductArray.listaProdutos.size(); i++) {
+        for (int i = 0; i < ProductArray.productList.size(); i++) {
 
             System.out.printf("%s | %s | %s | %s \n",
                     i,
-                    listaClassificacaoProdutos.get(i),
-                    listaProdutos.get(i),
-                    listaEstoqueProdutos.get(i)
+                    productClassificationList.get(i),
+                    productList.get(i),
+                    productInventoryList.get(i)
             );
 
         }
 
     }
+    
+    public static boolean printProductSorting(Scanner input) {
+        
+        boolean produtoOrdenado = false;
+        int option;
+        
+        System.out.println("");
+        System.out.println("[1] Ordenar ASC por descrição de produto");
+        System.out.println("[2] Ordenar DESC por descrição de produto");
+        System.out.println("[3] Ordenar DESC por ID de produto");
+        System.out.println("[4] Retornar ao menu");
+        
+        while(!produtoOrdenado) {
+            
+            System.out.println("");
+            System.out.println("Informe a opção de ordenação: ");
+            option = input.nextInt();
+            
+            switch (option) {
+                case 1:                    
+                    Collections.sort(productList);
+                    printProduct();   
+                    produtoOrdenado = true;
+                    break;
+                case 2:
+                    Collections.sort(productList, Collections.reverseOrder());
+                    printProduct();   
+                    produtoOrdenado = true;
+                    break;
+                case 3:
+                    Collections.sort(productList, Comparator.reverseOrder());
+                    printProduct(); 
+                    produtoOrdenado = true;
+                    break;
+                case 4:
+                    System.out.println("Back to the menu...");
+                    produtoOrdenado = true;
+                    break;
+                default: 
+                    System.out.println("[WARNING] Invalid option. Try again...");
+                            
+            }
+            
+            
+        }
+        
+        return produtoOrdenado;   
+    }
 
-    public static boolean atualizarProduto(Scanner entrada) {
+    public static boolean updateProduct(Scanner input) {
 
-        boolean produtoAtualizado = false;
-        int indiceProduto;
-        String descricaoProduto;
+        boolean updatedProduct = false;
+        int productID;
+        String productDescription;
 
-        if (possuiProdutoCadastrado) {
-            imprimirProdutos();
+        if (hasRegisteredProduct) {
+            printProduct();
         } else {
             System.out.println("Ainda não há produtos cadastrados");
         }
 
-        while (!produtoAtualizado) {
+        while (!updatedProduct) {
 
             System.out.println("");
             System.out.println("Informe o ID do produto a ser atualizado: ");
 
             try {
 
-                indiceProduto = entrada.nextInt();
+                productID = input.nextInt();
 
-                if (indiceProduto >= 0 && indiceProduto < listaProdutos.size()) {
+                if (productID >= 0 && productID < productList.size()) {
 
                     System.out.println("");
                     System.out.println("Informe a nova descrição do produto a ser atualizado: ");
 
                     try {
-                        descricaoProduto = entrada.next();
+                        productDescription = input.next();
 
-                        if (!descricaoProduto.equals("") || !descricaoProduto.equals(" ")) {
-                            listaProdutos.set(indiceProduto, descricaoProduto);
-                            produtoAtualizado = true;
+                        if (!productDescription.equals("") || !productDescription.equals(" ")) {
+                            productList.set(productID, productDescription);
+                            updatedProduct = true;
                         } else {
                             throw new Exception();
                         }
 
                     } catch (Exception e) {
                         System.out.println("Descrição de produto inválida! Tente novamente... ");
-                        entrada.nextLine();
+                        input.nextLine();
                     }
 
                 } else {
@@ -296,40 +352,40 @@ public class ProductArray {
 
             } catch (Exception e) {
                 System.out.println("ID de produto inexistente! Tente novamente... ");
-                entrada.nextLine();
+                input.nextLine();
             }
 
         }
 
-        return produtoAtualizado;
+        return updatedProduct;
     }
 
-    public static boolean removerProduto(Scanner entrada) {
+    public static boolean removeProduct(Scanner input) {
 
-        boolean produtoRemovido = false;
-        int indiceProduto;
+        boolean deletedProduct = false;
+        int productID;
 
-        if (possuiProdutoCadastrado) {
-            imprimirProdutos();
+        if (hasRegisteredProduct) {
+            printProduct();
         } else {
             System.out.println("Ainda não há produtos cadastrados;");
         }
 
-        while (!produtoRemovido) {
+        while (!deletedProduct) {
 
             System.out.println("");
             System.out.println("Informe o ID do produto que deseja remover: ");
 
             try {
 
-                indiceProduto = entrada.nextInt();
+                productID = input.nextInt();
 
-                if (indiceProduto >= 0 && indiceProduto < listaProdutos.size()) {
+                if (productID >= 0 && productID < productList.size()) {
 
-                    listaProdutos.remove(indiceProduto);
-                    listaClassificacaoProdutos.remove(indiceProduto);
-                    listaEstoqueProdutos.remove(indiceProduto);
-                    produtoRemovido = true;
+                    productList.remove(productID);
+                    productClassificationList.remove(productID);
+                    productInventoryList.remove(productID);
+                    deletedProduct = true;
 
                 } else {
                     throw new Exception();
@@ -337,64 +393,63 @@ public class ProductArray {
 
             } catch (Exception e) {
                 System.out.println("ID de produto inexistente. Tente novamente... ");
-                entrada.nextLine();
+                input.nextLine();
             }
 
         }
 
-        return produtoRemovido;
+        return deletedProduct;
 
     }
 
-    public static boolean adicionarEstoque(Scanner entrada) {
+    public static boolean addInventory(Scanner input) {
 
-        boolean estoqueAdicionado = false;
-        int indiceProduto;
-        int quantidadeItens;
-        int quantidadeItensAtual;
-        int quantidadeItensNova;
+        boolean addedInventory = false;
+        int productID;
+        int numberItems;
+        int numberItemsCurrent;
+        int numberItemsNew;
 
-        if (possuiProdutoCadastrado) {
-            imprimirProdutos();
+        if (hasRegisteredProduct) {
+            printProduct();
         } else {
             System.out.println("Ainda não há produto cadastrado... ");
         }
 
-        while (!estoqueAdicionado) {
+        while (!addedInventory) {
 
             System.out.println("");
             System.out.println("Informe o ID do produto que deseja adicionar estoque: ");
 
             try {
-                indiceProduto = entrada.nextInt();
+                productID = input.nextInt();
 
-                if (indiceProduto >= 0 && indiceProduto < listaProdutos.size()) {
+                if (productID >= 0 && productID < productList.size()) {
 
                     System.out.println("");
-                    System.out.printf(
-                            "Informe a quantidade de itens que deseja adicionar estoque do produto %s: ",
-                            listaProdutos.get(indiceProduto)
+                    System.out.printf("Informe a quantidade de itens que deseja adicionar estoque do produto %s: ",
+                            productList.get(productID)
                     );
 
                     try {
-                        quantidadeItens = entrada.nextInt();
+                        numberItems = input.nextInt();
 
-                        if (quantidadeItens == 0) {
+                        if (numberItems == 0) {
                             System.out.println("Nenhuma quantidade de itens foi adicionada ao produto.");
-                            estoqueAdicionado = true;
-                        } else if (quantidadeItens > 0) {
-                            quantidadeItensAtual = listaEstoqueProdutos.get(indiceProduto);
-                            quantidadeItensNova = quantidadeItensAtual + quantidadeItens;
-                            listaEstoqueProdutos.set(indiceProduto, quantidadeItensNova);
+                            addedInventory = true;
+                        } else if (numberItems > 0) {
+                            numberItemsCurrent = productInventoryList.get(productID);
+                            numberItemsNew = numberItemsCurrent + numberItems;
+                            productInventoryList.set(productID, numberItemsNew);
                             System.out.println("Quantidade de itens adicionada ao produto com sucesso!");
-                            estoqueAdicionado = true;
+                            addedInventory = true;
                         } else {
                             throw new Exception();
                         }
 
                     } catch (Exception e) {
                         System.out.println("Quantidade de itens inválida. Tente novamente... ");
-                        entrada.nextLine();
+                        input.nextLine();
                     }
 
                 } else {
@@ -402,42 +457,42 @@ public class ProductArray {
                 }
             } catch (Exception e) {
                 System.out.println("ID de produto inexistente. Tente novamente... ");
-                entrada.nextLine();
+                input.nextLine();
             }
 
         }
 
-        return estoqueAdicionado;
+        return addedInventory;
 
     }
 
-    public static boolean removerEstoque(Scanner entrada) {
+    public static boolean removedInventory(Scanner input) {
 
-        boolean estoqueRemovido = false;
-        int indiceProduto;
-        int quantidadeItens;
-        int quantidadeItensAtual;
-        int quantidadeItensNova;
+        boolean removedIntentory = false;
+        int productID;
+        int numberItems;
+        int numberItemsCurrent;
+        int numberItemsNew;
 
-        if (possuiProdutoCadastrado) {
-            imprimirProdutos();
+        if (hasRegisteredProduct) {
+            printProduct();
         } else {
             System.out.println("Ainda não há produto cadastrado... ");
         }
 
-        while (!estoqueRemovido) {
+        while (!removedIntentory) {
 
             System.out.println("");
             System.out.println("Informe o ID do produto que deseja remover estoque: ");
 
             try {
-                indiceProduto = entrada.nextInt();
+                productID = input.nextInt();
 
-                if (indiceProduto >= 0 && indiceProduto < listaProdutos.size()) {
+                if (productID >= 0 && productID < productList.size()) {
 
-                    if (listaEstoqueProdutos.get(indiceProduto) == 0) {
+                    if (productInventoryList.get(productID) == 0) {
                         System.out.println("[ATENÇÃO] Esse produto já possui estoque zerado!");
-                        estoqueRemovido = true;
+                        removedIntentory = true;
 
                     } else {
 
@@ -446,30 +501,30 @@ public class ProductArray {
 
                         try {
 
-                            quantidadeItens = entrada.nextInt();
+                            numberItems = input.nextInt();
 
-                            if (quantidadeItens == 0) {
+                            if (numberItems == 0) {
 
                                 System.out.println("[ATENÇÃO] Quantidade ZERO não pode ser removida do estoque");
-                                estoqueRemovido = true;
+                                removedIntentory = true;
 
-                            } else if (quantidadeItens > 0) {
+                            } else if (numberItems > 0) {
 
-                                quantidadeItensAtual = listaEstoqueProdutos.get(indiceProduto);
-                                quantidadeItensNova = quantidadeItensAtual - quantidadeItens;
+                                numberItemsCurrent = productInventoryList.get(productID);
+                                numberItemsNew = numberItemsCurrent - numberItems;
 
-                                if (quantidadeItensNova < 0) {
+                                if (numberItemsNew < 0) {
                                     System.out.println("""
                                                        [ATENÇÃO] A quantidade de itens informada foi SUPERIOR \u00e0 quantidade de itens em estoque. 
                                                        Com isso, o estoque do produto foi ZERADO para n\u00e3o ficar negativo, conforme regras de Compliance. 
                                                        """);
-                                    listaEstoqueProdutos.set(indiceProduto, 0);
+                                    productInventoryList.set(productID, 0);
                                 } else {
-                                    listaEstoqueProdutos.set(indiceProduto, quantidadeItensNova);
+                                    productInventoryList.set(productID, numberItemsNew);
                                 }
 
                                 System.out.println("Quantidade de itens removida do produto com sucesso!");
-                                estoqueRemovido = true;
+                                removedIntentory = true;
 
                             } else {
                                 throw new Exception();                               
@@ -477,7 +532,7 @@ public class ProductArray {
 
                         } catch (Exception e) {
                             System.out.println("Quantidade de itens inválida. Tente novamente... ");
-                            entrada.nextLine();
+                            input.nextLine();
                         }
 
                     }
@@ -486,12 +541,12 @@ public class ProductArray {
                 }
             } catch (Exception e) {
                 System.out.println("ID de produto inexistente. Tente novamente... ");
-                entrada.nextLine();
+                input.nextLine();
             }
 
         }
 
-        return estoqueRemovido;
+        return removedIntentory;
     }
 
 }
