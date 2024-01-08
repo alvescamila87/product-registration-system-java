@@ -14,7 +14,7 @@ public class ProductArray {
     private static ArrayList<String> productList = new ArrayList<>();
     private static ArrayList<String> productClassificationList = new ArrayList<>();
     private static ArrayList<Integer> productInventoryList = new ArrayList<>();
-    private static boolean hasRegisteredProduct = false;
+    private static boolean hasRegisteredProduct = false;    
 
     public static void main(String[] args) {
 
@@ -37,44 +37,47 @@ public class ProductArray {
                     if (hasRegisteredProduct) {
                         updateProduct(input);
                     } else {
-                        System.out.println("O sistema ainda NÃO possui produtos cadastrados.");
+                        System.out.println("There is no product registered. You should do it first!");
                     }
+                    break;
                 case 3:
                     if (hasRegisteredProduct) {
                         removeProduct(input);
                     } else {
-                        System.out.println("O sistema ainda NÃO possui produtos cadastrados.");
+                        System.out.println("There is no product registered. You should do it first!");
                     }
+                    break;
                 case 4:
                     if (hasRegisteredProduct) {
                         printProduct();
                     } else {
-                        System.out.println("O sistema ainda NÃO possui produtos cadastrados.");
+                        System.out.println("There is no product registered. You should do it first!");
                     }
                     break;
                 case 5:
                     if (hasRegisteredProduct) {
                         printProductSorting(input);
                     } else {
-                        System.out.println("O sistema ainda NÃO possui produtos cadastrados.");
+                        System.out.println("There is no product registered. You should do it first!");
                     }
                     break;
                 case 7:
                     if (hasRegisteredProduct) {
                         addInventory(input);
                     } else {
-                        System.out.println("O sistema ainda NÃO possui produtos cadastrados.");
+                        System.out.println("There is no product registered. You should do it first!");
                     }
                     break;
                 case 8:
                     if (hasRegisteredProduct) {
                         removedInventory(input);
                     } else {
-                        System.out.println("O sistema ainda NÃO possui produtos cadastrados.");
+                        System.out.println("There is no product registered. You should do it first!");
                     }
                     break;
                 case 9:
-                    System.out.println("FIM PROGRAMA");
+                    System.out.println("FINISHING THE PROGRAM...");
+                    System.out.println("THANK YOU!!!");
                     break;
 
             }
@@ -82,7 +85,7 @@ public class ProductArray {
 
     }
 
-    public static boolean login(Scanner entrada) {
+    public static boolean login(Scanner input) {
 
         String userDataBase = "admin";
         String passwordDataBase = "12345";
@@ -94,11 +97,11 @@ public class ProductArray {
 
             try {
                 System.out.println("");
-                System.out.println("Informe o usuário de login: ");
+                System.out.println("Input the username: ");
                 user = entrada.nextLine();
 
                 System.out.println("");
-                System.out.println("Informe a senha de login: ");
+                System.out.println("Input the password: ");
                 password = entrada.nextLine();
 
                 if (userDataBase.equals(user) && passwordDataBase.equals(password)) {
@@ -108,7 +111,8 @@ public class ProductArray {
                 }
 
             } catch (Exception e) {
-                System.out.println("Usuário e/ou senha inválidos! Tente novamente...");
+                System.out.println("The username and/or passowrd are invalided! Try again...");
+                input.next();
             }
 
         }
@@ -142,16 +146,17 @@ public class ProductArray {
             System.out.println("");
 
             try {
-                System.out.println("Digite uma opção do menu: ");
+                System.out.println("Input an option from the menu: ");
                 option = input.nextInt();
 
-                if (option >= 1 && option <= 8) {
+                if (option >= 1 && option <= 9) {
                     optionValid = true;
                 } else {
                     throw new Exception();
                 }
             } catch (Exception e) {
-                System.out.println("Entrada inválida, tente novamente... ");
+                System.out.println("Invalid option, try again... ");
+                input.next();
             }
         }
 
@@ -161,15 +166,11 @@ public class ProductArray {
 
     public static boolean insertProduct(Scanner input) {
 
-        if (hasRegisteredProduct) {
-            printProduct();
-        } else {
-            System.out.println("Ainda não há produtos cadastrados");
-        }
-
         boolean insertedProduct = false;
         String product;
         int classificationProduct = 1;
+        
+        printProduct();
 
         while (!insertedProduct) {
 
@@ -182,7 +183,7 @@ public class ProductArray {
                 if (!product.equals("") || !product.equals(" ")) {
 
                     System.out.println("");
-                    System.out.println("---------- CLASSIFICAÇÃO PRODUTO ----------");
+                    System.out.println("---------- PRODUCT CLASSIFICATION ----------");
                     System.out.println("");
                     System.out.println("""
                                [1] First line
@@ -193,7 +194,7 @@ public class ProductArray {
 
                     try {
                         System.out.println("");
-                        System.out.println("Digite uma opção de classificação: ");
+                        System.out.println("Input an option from the classification: ");
                         classificationProduct = input.nextInt();
 
                         if (classificationProduct >= 1 || classificationProduct <= 3) {
@@ -210,7 +211,7 @@ public class ProductArray {
                                     break;
                             }
 
-                            System.out.println("Produto cadastrado com sucesso!");
+                            System.out.println("The product was successfully registered!");
                             productList.add(product);
                             productInventoryList.add(0);
                             insertedProduct = true;
@@ -219,7 +220,7 @@ public class ProductArray {
                             throw new Exception();
                         }
                     } catch (Exception e) {
-                        System.out.println("Classificação de produto inválida, tente novamente 1");
+                        System.out.println("Invalid classification, try again...");
                         input.nextLine();
                     }
 
@@ -227,7 +228,7 @@ public class ProductArray {
                     throw new Exception();
                 }
             } catch (Exception e) {
-                System.out.println("Classificação de produto inválida, tente novamente 2");
+                System.out.println("Invalid classification, try again...");
                 input.nextLine();
             }
 
@@ -240,19 +241,26 @@ public class ProductArray {
     public static void printProduct() {
 
         System.out.println("");
-        System.out.println("ID | CLASSIFICAÇÃO | DESCRIÇÃO DO PRODUTO | QTD EM ESTOQUE");
+        System.out.println("ID | CLASSIFICATION | PRODUCT DESCRIPTION | ITEMS IN INVENTORY");
         //Collections.sort(ProductArray.productList);
         //System.out.println(ProductArray.productList);
+        
+        if(!productList.isEmpty()) {
 
-        for (int i = 0; i < ProductArray.productList.size(); i++) {
+            for (int i = 0; i < productList.size(); i++) {
 
-            System.out.printf("%s | %s | %s | %s \n",
-                    i,
-                    productClassificationList.get(i),
-                    productList.get(i),
-                    productInventoryList.get(i)
-            );
+                System.out.printf("%s | %s | %s | %s \n",
+                        i,
+                        productClassificationList.get(i),
+                        productList.get(i),
+                        productInventoryList.get(i)
+                );
 
+            }
+            
+            hasRegisteredProduct = true;
+        } else {            
+            System.out.println("There is no product registered!");                    
         }
 
     }
@@ -263,31 +271,32 @@ public class ProductArray {
         int option;
         
         System.out.println("");
-        System.out.println("[1] Ordenar ASC por descrição de produto");
-        System.out.println("[2] Ordenar DESC por descrição de produto");
-        System.out.println("[3] Ordenar DESC por ID de produto");
-        System.out.println("[4] Retornar ao menu");
+        System.out.println("[1] Sort ASC by product description");
+        System.out.println("[2] Sort DESC by product description");
+        System.out.println("[3] Sort DESC by product ID");
+        System.out.println("[4] Back to the menu");
         
         while(!produtoOrdenado) {
             
             System.out.println("");
-            System.out.println("Informe a opção de ordenação: ");
+            System.out.println("Input an option to sort info: ");
             option = input.nextInt();
             
             switch (option) {
                 case 1:                    
-                    Collections.sort(productList);
-                    printProduct();   
+                    //Collections.sort(productList);
+                    //printProduct(); 
                     produtoOrdenado = true;
                     break;
                 case 2:
-                    Collections.sort(productList, Collections.reverseOrder());
-                    printProduct();   
+                    //Collections.sort(productList, Collections.reverseOrder());
+                    //printProduct();   
+                    
                     produtoOrdenado = true;
                     break;
                 case 3:
-                    Collections.sort(productList, Comparator.reverseOrder());
-                    printProduct(); 
+                    //Collections.sort(productList, Comparator.reverseOrder());
+                    //printProduct();                                        
                     produtoOrdenado = true;
                     break;
                 case 4:
@@ -296,6 +305,7 @@ public class ProductArray {
                     break;
                 default: 
                     System.out.println("[WARNING] Invalid option. Try again...");
+                    input.next();
                             
             }
             
@@ -310,13 +320,9 @@ public class ProductArray {
         boolean updatedProduct = false;
         int productID;
         String productDescription;
-
-        if (hasRegisteredProduct) {
-            printProduct();
-        } else {
-            System.out.println("Ainda não há produtos cadastrados");
-        }
-
+        
+        printProduct();
+       
         while (!updatedProduct) {
 
             System.out.println("");
@@ -364,12 +370,8 @@ public class ProductArray {
 
         boolean deletedProduct = false;
         int productID;
-
-        if (hasRegisteredProduct) {
-            printProduct();
-        } else {
-            System.out.println("Ainda não há produtos cadastrados;");
-        }
+        
+        printProduct();
 
         while (!deletedProduct) {
 
@@ -410,12 +412,8 @@ public class ProductArray {
         int numberItemsCurrent;
         int numberItemsNew;
 
-        if (hasRegisteredProduct) {
-            printProduct();
-        } else {
-            System.out.println("Ainda não há produto cadastrado... ");
-        }
-
+        printProduct();
+        
         while (!addedInventory) {
 
             System.out.println("");
@@ -473,12 +471,8 @@ public class ProductArray {
         int numberItems;
         int numberItemsCurrent;
         int numberItemsNew;
-
-        if (hasRegisteredProduct) {
-            printProduct();
-        } else {
-            System.out.println("Ainda não há produto cadastrado... ");
-        }
+        
+        printProduct();
 
         while (!removedIntentory) {
 
