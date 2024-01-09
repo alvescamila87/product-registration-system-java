@@ -59,6 +59,7 @@ public class ProductArray {
                         printProductSorting(input);
                     } else {
                         System.out.println("There is no product registered. You should do it first!");
+<<<<<<< HEAD
                     }
                     break;
                 case 6:
@@ -66,6 +67,8 @@ public class ProductArray {
                         printProductClassification(input);
                     } else {
                         System.out.println("There is no product registered. You should do it first!");
+=======
+>>>>>>> 6264405306cba1582221c7748266c7cb657202c0
                     }
                     break;
                 case 7:
@@ -105,11 +108,19 @@ public class ProductArray {
             try {
                 System.out.println("");
                 System.out.println("Input the username: ");
+<<<<<<< HEAD
                 user = input.nextLine();
 
                 System.out.println("");
                 System.out.println("Input the password: ");
                 password = input.nextLine();
+=======
+                user = entrada.nextLine();
+
+                System.out.println("");
+                System.out.println("Input the password: ");
+                password = entrada.nextLine();
+>>>>>>> 6264405306cba1582221c7748266c7cb657202c0
 
                 if (userDataBase.equals(user) && passwordDataBase.equals(password)) {
                     loginValid = true;
@@ -278,9 +289,16 @@ public class ProductArray {
         int option;
         
         System.out.println("");
+<<<<<<< HEAD
         System.out.println("[1] Sort ASC by product ID");
         System.out.println("[2] Sort DESC by product ID");
         System.out.println("[3] Back to the menu");
+=======
+        System.out.println("[1] Sort ASC by product description");
+        System.out.println("[2] Sort DESC by product description");
+        System.out.println("[3] Sort DESC by product ID");
+        System.out.println("[4] Back to the menu");
+>>>>>>> 6264405306cba1582221c7748266c7cb657202c0
         
         while(!productSorted) {
             
@@ -290,6 +308,7 @@ public class ProductArray {
             
             switch (option) {
                 case 1:                    
+<<<<<<< HEAD
                     printProduct();
                     productSorted = true;
                     break;
@@ -312,6 +331,24 @@ public class ProductArray {
                     productSorted = true;
                     break;
                 case 3:
+=======
+                    //Collections.sort(productList);
+                    //printProduct(); 
+                    produtoOrdenado = true;
+                    break;
+                case 2:
+                    //Collections.sort(productList, Collections.reverseOrder());
+                    //printProduct();   
+                    
+                    produtoOrdenado = true;
+                    break;
+                case 3:
+                    //Collections.sort(productList, Comparator.reverseOrder());
+                    //printProduct();                                        
+                    produtoOrdenado = true;
+                    break;
+                case 4:
+>>>>>>> 6264405306cba1582221c7748266c7cb657202c0
                     System.out.println("Back to the menu...");
                     productSorted = true;
                     break;
