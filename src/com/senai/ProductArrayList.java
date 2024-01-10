@@ -9,19 +9,17 @@ import java.util.Scanner;
  */
 public class ProductArrayList {
 
-    private static ArrayList<String> productList = new ArrayList<>();
-    private static ArrayList<String> productClassificationList = new ArrayList<>();
-    private static ArrayList<Integer> productStockList = new ArrayList<>();
-    private static boolean hasRegisteredProduct = false;    
+    private static final ArrayList<String> productList = new ArrayList<>();
+    private static final ArrayList<String> productClassificationList = new ArrayList<>();
+    private static final ArrayList<Integer> productStockList = new ArrayList<>();
+    private static boolean hasRegisteredProduct = false;
 
     public static void main(String[] args) {
 
         Scanner input = new Scanner(System.in);
 
-        // login
         login(input);
 
-        // menu 
         int opcao = 1;
 
         while (opcao != 9) {
@@ -87,26 +85,29 @@ public class ProductArrayList {
 
             }
         }
-
     }
 
+    /**
+     * Login to user authentication in the system
+     * throws an exception if user or password are different from "harshcoded" database
+     */
     public static boolean login(Scanner input) {
 
         String userDataBase = "admin";
         String passwordDataBase = "12345";
-        String user = "";
-        String password = "";
+        String user;
+        String password;
         boolean loginValid = false;
 
         while (!loginValid) {
 
             try {
                 System.out.println("");
-                System.out.println("Input the username: ");
+                System.out.print("Input the username: ");
                 user = input.nextLine();
 
                 System.out.println("");
-                System.out.println("Input the password: ");
+                System.out.print("Input the password: ");
                 password = input.nextLine();
 
                 if (userDataBase.equals(user) && passwordDataBase.equals(password)) {
@@ -117,7 +118,6 @@ public class ProductArrayList {
 
             } catch (Exception e) {
                 System.out.println("The username and/or passowrd are invalided! Try again...");
-                input.next();
             }
 
         }
@@ -126,6 +126,10 @@ public class ProductArrayList {
 
     }
 
+    /**
+     * Only after logging in, it's possible to see and input an option from the menu about system
+     * throws an exception if the option is different from listed on the menu
+     */
     public static int menu(Scanner input) {
 
         boolean optionValid = false;
@@ -169,6 +173,10 @@ public class ProductArrayList {
 
     }
 
+    /**
+     * It allows inputting a description and classification product
+     * throws an exception if the description or classification are blank
+     */
     public static boolean insertProduct(Scanner input) {
 
         boolean insertedProduct = false;
@@ -242,7 +250,11 @@ public class ProductArrayList {
         return insertedProduct;
 
     }
-    
+
+    /**
+     * It allows updating only the description product
+     * throws an exception if the description is blank
+     */
      public static boolean updateProduct(Scanner input) {
 
         boolean updatedProduct = false;
@@ -294,6 +306,10 @@ public class ProductArrayList {
         return updatedProduct;
     }
 
+    /**
+     * When remove product, it removes the product: ID, description, classification and stock
+     * throws an exception if the ID not found
+     */
     public static boolean removeProduct(Scanner input) {
 
         boolean deletedProduct = false;
@@ -332,6 +348,11 @@ public class ProductArrayList {
 
     }
 
+    /**
+     * It shows a list product with the info:
+     * ID, description, classification and stock
+     * throws an exception if there is no product on the list
+     */
     public static void printProduct() {
 
         System.out.println("");
@@ -356,7 +377,12 @@ public class ProductArrayList {
         }
 
     }
-    
+
+    /**
+     * It shows a list product sorted by ID with the info:
+     * ID, description, classification and stock
+     * throws an exception if there is no product on the list
+     */
     public static boolean printProductSorting(Scanner input) {
         
         boolean productSorted = false;
@@ -411,6 +437,11 @@ public class ProductArrayList {
         return productSorted;   
     }
 
+    /**
+     * It shows a list product filtered by classification with the info:
+     * ID, description, classification and stock
+     * throws an exception if there is no product on the list
+     */
     public static boolean printProductClassification(Scanner input) {
 
         boolean classifiedProduct = false;
@@ -563,6 +594,10 @@ public class ProductArrayList {
 
     }
 
+    /**
+     * It allows adding the quantity of the items of the product in stock:
+     * throws an exception if product ID is blank or quantity is invalid
+     */
     public static boolean addItemStock(Scanner input) {
 
         boolean itemAddedStock = false;
@@ -623,6 +658,10 @@ public class ProductArrayList {
 
     }
 
+    /**
+     * It allows removing the quantity of the items of the product in stock:
+     * throws an exception if product ID is blank or quantity is invalid
+     */
     public static boolean removeItemInventory(Scanner input) {
 
         boolean ItemRemovedStock = false;
