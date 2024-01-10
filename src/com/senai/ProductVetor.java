@@ -8,7 +8,7 @@ import java.util.Scanner;
  * @author Camila
  */
 
-public class Product {
+public class ProductVetor {
     
     public static final int MAX_PRODUCTS = 50;
     private static int countProduct = 0;
@@ -86,7 +86,7 @@ public class Product {
 
         Scanner keyboard = new Scanner(System.in);
 
-        Product products = new Product();
+        ProductVetor products = new ProductVetor();
 
         int optionMenu;
         
@@ -114,28 +114,28 @@ public class Product {
             switch (optionMenu) {
 
                 case 1:
-                    Product.insertProduct();
+                    ProductVetor.insertProduct();
                     break;
                 case 2:
-                    Product.updateProduct();
+                    ProductVetor.updateProduct();
                     break;
                 case 3:
-                    Product.removeProduct();
+                    ProductVetor.removeProduct();
                     break;
                 case 4:
-                    Product.displayProducts();
+                    ProductVetor.displayProducts();
                     break;
                 case 5: 
-                    Product.displaySortingProducts();
+                    ProductVetor.displaySortingProducts();
                     break;
                 case 6: 
-                    Product.displayClassificationProducts();                    
+                    ProductVetor.displayClassificationProducts();
                     break;
                 case 7:
-                    Product.addInventory();
+                    ProductVetor.addInventory();
                     break;
                 case 8:
-                    Product.removeInventory();
+                    ProductVetor.removeInventory();
                     break;
                 case 9:
                     System.out.println("");
@@ -153,7 +153,7 @@ public class Product {
     // classification due to line of the product, related the quality it.
     public static void insertProduct() {
         
-        Product.displayProducts();
+        ProductVetor.displayProducts();
 
         String descriptionProduct = "";
         char classificationProduct = 0;
@@ -169,8 +169,8 @@ public class Product {
 
             if (!"".equals(descriptionProduct)) {
 
-                Product.tableProducts[Product.countProduct] = descriptionProduct;
-                Product.tableInventoryProducts[Product.countProduct] = 0;
+                ProductVetor.tableProducts[ProductVetor.countProduct] = descriptionProduct;
+                ProductVetor.tableInventoryProducts[ProductVetor.countProduct] = 0;
                 break;
 
             } else {
@@ -193,16 +193,16 @@ public class Product {
             
             switch(classificationProductUpperCase) {
                 case 'A': 
-                    Product.tableClassificationProducts[Product.countProduct] = "Gold line";
-                    Product.countProduct++;
+                    ProductVetor.tableClassificationProducts[ProductVetor.countProduct] = "Gold line";
+                    ProductVetor.countProduct++;
                     break;
                 case 'B': 
-                    Product.tableClassificationProducts[Product.countProduct] = "Premium line";
-                    Product.countProduct++;
+                    ProductVetor.tableClassificationProducts[ProductVetor.countProduct] = "Premium line";
+                    ProductVetor.countProduct++;
                     break;
                 case 'C': 
-                    Product.tableClassificationProducts[Product.countProduct] = "Regular line";
-                    Product.countProduct++;
+                    ProductVetor.tableClassificationProducts[ProductVetor.countProduct] = "Regular line";
+                    ProductVetor.countProduct++;
                     break;
                 default: 
                     System.out.println("");
@@ -218,29 +218,29 @@ public class Product {
     // the product, it does not allow to change its classification.
     public static void updateProduct() {
         
-        Product.displayProducts();
+        ProductVetor.displayProducts();
         
         int idProduct;
         String descriptionProduct = "";
-        Product.findProduct = false;
+        ProductVetor.findProduct = false;
         
         Scanner keyboard = new Scanner(System.in);
        
-        while (!Product.findProduct) {
+        while (!ProductVetor.findProduct) {
             
             System.out.println();
             System.out.println("Type the ID of the product that would you like to change: ");
             idProduct = keyboard.nextInt();
 
-            if (idProduct < 0 || idProduct > Product.MAX_PRODUCTS) {
+            if (idProduct < 0 || idProduct > ProductVetor.MAX_PRODUCTS) {
                     
                 System.out.println();
                 System.out.println("[ERROR] There is no negative ID and/or non-existent ID.");
                 break;
 
-            } else if (idProduct >= 0 || idProduct > Product.MAX_PRODUCTS) {
+            } else if (idProduct >= 0 || idProduct > ProductVetor.MAX_PRODUCTS) {
                 
-                if(Product.tableProducts[idProduct] == null || Product.tableProducts[idProduct].trim().isEmpty()) {
+                if(ProductVetor.tableProducts[idProduct] == null || ProductVetor.tableProducts[idProduct].trim().isEmpty()) {
                     
                     System.out.println();
                     System.out.println("[ERROR] There is no product registered.");
@@ -254,17 +254,17 @@ public class Product {
                         System.out.println("Type the new description product: ");
                         descriptionProduct = keyboard.next();
 
-                        Product.tableProducts[idProduct] = descriptionProduct;
+                        ProductVetor.tableProducts[idProduct] = descriptionProduct;
                         System.out.println();
                         System.out.println("The description product was updated successfully!");
-                        Product.findProduct = true;
+                        ProductVetor.findProduct = true;
                         break;                       
 
                     }
                 }                
             } else {
                 
-                if(Product.findProduct) {
+                if(ProductVetor.findProduct) {
                     break;
                 }
             } 
@@ -276,28 +276,28 @@ public class Product {
     // dependencies, such as classification and inventory
     public static void removeProduct() {
         
-        Product.displayProducts();
+        ProductVetor.displayProducts();
         
         int idProduct;
-        Product.findProduct = false;
+        ProductVetor.findProduct = false;
         
         Scanner keyboard = new Scanner(System.in);
        
-        while (!Product.findProduct) {
+        while (!ProductVetor.findProduct) {
             
             System.out.println();
             System.out.println("Type the ID of the product that would you like to remove: ");
             idProduct = keyboard.nextInt();
 
-            if (idProduct < 0 || idProduct > Product.MAX_PRODUCTS) {
+            if (idProduct < 0 || idProduct > ProductVetor.MAX_PRODUCTS) {
                     
                 System.out.println();
                 System.out.println("[ERROR] There is no negative ID and/or non-existent ID.");
                 break;
 
-            } else if (idProduct >= 0 || idProduct > Product.MAX_PRODUCTS) {
+            } else if (idProduct >= 0 || idProduct > ProductVetor.MAX_PRODUCTS) {
                 
-                if(Product.tableProducts[idProduct] == null || Product.tableProducts[idProduct].trim().isEmpty()) {
+                if(ProductVetor.tableProducts[idProduct] == null || ProductVetor.tableProducts[idProduct].trim().isEmpty()) {
                     
                     System.out.println();
                     System.out.println("[ERROR] There is no product registered.");
@@ -305,12 +305,12 @@ public class Product {
                 
                 } else {
                     
-                    Product.tableProducts[idProduct] = null;
-                    Product.tableClassificationProducts[idProduct] = null;
-                    Product.tableInventoryProducts[idProduct] = 0;
+                    ProductVetor.tableProducts[idProduct] = null;
+                    ProductVetor.tableClassificationProducts[idProduct] = null;
+                    ProductVetor.tableInventoryProducts[idProduct] = 0;
                     System.out.println();
                     System.out.println("The product was removed successfully!");
-                    Product.findProduct = true;
+                    ProductVetor.findProduct = true;
                     break;                       
 
                     
@@ -318,7 +318,7 @@ public class Product {
                 
             } else {
                 
-                if(Product.findProduct) {
+                if(ProductVetor.findProduct) {
                     break;
                 }
             } 
@@ -333,11 +333,11 @@ public class Product {
         System.out.println(""); 
         System.out.println("| ID | CLASSIFICATION | DESCRIPTION PRODUCT  | INVENTORY |");
         
-        for (int i = 0; i < Product.countProduct; i++) {
+        for (int i = 0; i < ProductVetor.countProduct; i++) {
 
-            if (!"".equals(Product.tableProducts[i]) && Product.tableProducts[i] != null) {
+            if (!"".equals(ProductVetor.tableProducts[i]) && ProductVetor.tableProducts[i] != null) {
 
-                System.out.printf("| %-2d | %-14s | %-20s | %-9d \n", i, Product.tableClassificationProducts[i], Product.tableProducts[i], Product.tableInventoryProducts[i]);
+                System.out.printf("| %-2d | %-14s | %-20s | %-9d \n", i, ProductVetor.tableClassificationProducts[i], ProductVetor.tableProducts[i], ProductVetor.tableInventoryProducts[i]);
             }
 
         }
@@ -369,7 +369,7 @@ public class Product {
             switch(classificationOption) {
                 
                 case 1: 
-                    Product.displayProducts();
+                    ProductVetor.displayProducts();
                     classificationOption = 3;
                     break;
                 case 2:
@@ -378,11 +378,11 @@ public class Product {
                     System.out.println("");
                     System.out.println("| ID | CLASSIFICATION | DESCRIPTION PRODUCT  | INVENTORY |");
 
-                    for (int i = Product.countProduct; i >= 0; i--) {
+                    for (int i = ProductVetor.countProduct; i >= 0; i--) {
 
-                        if (!"".equals(Product.tableProducts[i]) && Product.tableProducts[i] != null) {
+                        if (!"".equals(ProductVetor.tableProducts[i]) && ProductVetor.tableProducts[i] != null) {
 
-                            System.out.printf("| %-2d | %-14s | %-20s | %-9d \n", i, Product.tableClassificationProducts[i], Product.tableProducts[i], Product.tableInventoryProducts[i]);
+                            System.out.printf("| %-2d | %-14s | %-20s | %-9d \n", i, ProductVetor.tableClassificationProducts[i], ProductVetor.tableProducts[i], ProductVetor.tableInventoryProducts[i]);
                         }
 
                     }
@@ -433,12 +433,12 @@ public class Product {
                     System.out.println("");
                     System.out.println("| ID | CLASSIFICATION | DESCRIPTION PRODUCT  | INVENTORY |");
 
-                    for (int i = 0; i < Product.countProduct; i++) {
+                    for (int i = 0; i < ProductVetor.countProduct; i++) {
 
-                        if (!"".equals(Product.tableProducts[i]) && Product.tableProducts[i] != null) {
+                        if (!"".equals(ProductVetor.tableProducts[i]) && ProductVetor.tableProducts[i] != null) {
                             
-                            if("Gold line".equals(Product.tableClassificationProducts[i])) {
-                                System.out.printf("| %-2d | %-14s | %-20s | %-9d \n", i, Product.tableClassificationProducts[i], Product.tableProducts[i], Product.tableInventoryProducts[i]);
+                            if("Gold line".equals(ProductVetor.tableClassificationProducts[i])) {
+                                System.out.printf("| %-2d | %-14s | %-20s | %-9d \n", i, ProductVetor.tableClassificationProducts[i], ProductVetor.tableProducts[i], ProductVetor.tableInventoryProducts[i]);
                             }
                             
                         }
@@ -451,12 +451,12 @@ public class Product {
                     System.out.println("");
                     System.out.println("| ID | CLASSIFICATION | DESCRIPTION PRODUCT  | INVENTORY |");
 
-                    for (int i = 0; i < Product.countProduct; i++) {
+                    for (int i = 0; i < ProductVetor.countProduct; i++) {
 
-                        if (!"".equals(Product.tableProducts[i]) && Product.tableProducts[i] != null) {
+                        if (!"".equals(ProductVetor.tableProducts[i]) && ProductVetor.tableProducts[i] != null) {
                             
-                            if("Premium line".equals(Product.tableClassificationProducts[i])) {
-                                System.out.printf("| %-2d | %-14s | %-20s | %-9d \n", i, Product.tableClassificationProducts[i], Product.tableProducts[i], Product.tableInventoryProducts[i]);
+                            if("Premium line".equals(ProductVetor.tableClassificationProducts[i])) {
+                                System.out.printf("| %-2d | %-14s | %-20s | %-9d \n", i, ProductVetor.tableClassificationProducts[i], ProductVetor.tableProducts[i], ProductVetor.tableInventoryProducts[i]);
                             }
                             
                         }
@@ -469,12 +469,12 @@ public class Product {
                     System.out.println("");
                     System.out.println("| ID | CLASSIFICATION | DESCRIPTION PRODUCT  | INVENTORY |");
 
-                    for (int i = 0; i < Product.countProduct; i++) {
+                    for (int i = 0; i < ProductVetor.countProduct; i++) {
 
-                        if (!"".equals(Product.tableProducts[i]) && Product.tableProducts[i] != null) {
+                        if (!"".equals(ProductVetor.tableProducts[i]) && ProductVetor.tableProducts[i] != null) {
                             
-                            if("Regular line".equals(Product.tableClassificationProducts[i])) {
-                                System.out.printf("| %-2d | %-14s | %-20s | %-9d \n", i, Product.tableClassificationProducts[i], Product.tableProducts[i], Product.tableInventoryProducts[i]);
+                            if("Regular line".equals(ProductVetor.tableClassificationProducts[i])) {
+                                System.out.printf("| %-2d | %-14s | %-20s | %-9d \n", i, ProductVetor.tableClassificationProducts[i], ProductVetor.tableProducts[i], ProductVetor.tableInventoryProducts[i]);
                             }
                             
                         }
@@ -487,36 +487,36 @@ public class Product {
                     System.out.println("");
                     System.out.println("| ID | CLASSIFICATION | DESCRIPTION PRODUCT  | INVENTORY |");
 
-                    for (int i = 0; i < Product.countProduct; i++) {
+                    for (int i = 0; i < ProductVetor.countProduct; i++) {
 
-                        if (!"".equals(Product.tableProducts[i]) && Product.tableProducts[i] != null) {
+                        if (!"".equals(ProductVetor.tableProducts[i]) && ProductVetor.tableProducts[i] != null) {
                             
-                            if("Gold line".equals(Product.tableClassificationProducts[i])) {
-                                System.out.printf("| %-2d | %-14s | %-20s | %-9d \n", i, Product.tableClassificationProducts[i], Product.tableProducts[i], Product.tableInventoryProducts[i]);
+                            if("Gold line".equals(ProductVetor.tableClassificationProducts[i])) {
+                                System.out.printf("| %-2d | %-14s | %-20s | %-9d \n", i, ProductVetor.tableClassificationProducts[i], ProductVetor.tableProducts[i], ProductVetor.tableInventoryProducts[i]);
                             }
                             
                         }
 
                     }
                     
-                    for (int i = 0; i < Product.countProduct; i++) {
+                    for (int i = 0; i < ProductVetor.countProduct; i++) {
 
-                        if (!"".equals(Product.tableProducts[i]) && Product.tableProducts[i] != null) {
+                        if (!"".equals(ProductVetor.tableProducts[i]) && ProductVetor.tableProducts[i] != null) {
                             
-                            if("Premium line".equals(Product.tableClassificationProducts[i])) {
-                                System.out.printf("| %-2d | %-14s | %-20s | %-9d \n", i, Product.tableClassificationProducts[i], Product.tableProducts[i], Product.tableInventoryProducts[i]);
+                            if("Premium line".equals(ProductVetor.tableClassificationProducts[i])) {
+                                System.out.printf("| %-2d | %-14s | %-20s | %-9d \n", i, ProductVetor.tableClassificationProducts[i], ProductVetor.tableProducts[i], ProductVetor.tableInventoryProducts[i]);
                             }
                             
                         }
 
                     }
                     
-                    for (int i = 0; i < Product.countProduct; i++) {
+                    for (int i = 0; i < ProductVetor.countProduct; i++) {
 
-                        if (!"".equals(Product.tableProducts[i]) && Product.tableProducts[i] != null) {
+                        if (!"".equals(ProductVetor.tableProducts[i]) && ProductVetor.tableProducts[i] != null) {
                             
-                            if("Regular line".equals(Product.tableClassificationProducts[i])) {
-                                System.out.printf("| %-2d | %-14s | %-20s | %-9d \n", i, Product.tableClassificationProducts[i], Product.tableProducts[i], Product.tableInventoryProducts[i]);
+                            if("Regular line".equals(ProductVetor.tableClassificationProducts[i])) {
+                                System.out.printf("| %-2d | %-14s | %-20s | %-9d \n", i, ProductVetor.tableClassificationProducts[i], ProductVetor.tableProducts[i], ProductVetor.tableInventoryProducts[i]);
                             }
                             
                         }
@@ -539,29 +539,29 @@ public class Product {
     // each product has in the stock
     public static void addInventory() {
         
-        Product.displayProducts();
+        ProductVetor.displayProducts();
         
         int idProduct;
         int quantityItemsProduct = -1;
-        Product.findProduct = false;
+        ProductVetor.findProduct = false;
         
         Scanner keyboard = new Scanner(System.in);
        
-        while (!Product.findProduct) {
+        while (!ProductVetor.findProduct) {
             
             System.out.println();
             System.out.println("Type the ID of the product that would you like to add items from inventory: ");
             idProduct = keyboard.nextInt();
 
-            if (idProduct < 0 || idProduct > Product.MAX_PRODUCTS) {
+            if (idProduct < 0 || idProduct > ProductVetor.MAX_PRODUCTS) {
                     
                 System.out.println();
                 System.out.println("[ERROR] There is no negative ID and/or non-existent ID.");
                 break;
 
-            } else if (idProduct >= 0 || idProduct > Product.MAX_PRODUCTS) {
+            } else if (idProduct >= 0 || idProduct > ProductVetor.MAX_PRODUCTS) {
                 
-                if(Product.tableProducts[idProduct] == null || Product.tableProducts[idProduct].trim().isEmpty()) {
+                if(ProductVetor.tableProducts[idProduct] == null || ProductVetor.tableProducts[idProduct].trim().isEmpty()) {
                     
                     System.out.println();
                     System.out.println("[ERROR] There is no product registered.");
@@ -582,10 +582,10 @@ public class Product {
                         
                         } else {
                             
-                            Product.tableInventoryProducts[idProduct] = Product.tableInventoryProducts[idProduct] + quantityItemsProduct;
+                            ProductVetor.tableInventoryProducts[idProduct] = ProductVetor.tableInventoryProducts[idProduct] + quantityItemsProduct;
                             System.out.println();
                             System.out.println("The quantity was added to the product successfully!");
-                            Product.findProduct = true;
+                            ProductVetor.findProduct = true;
                             break;
                             
                         }
@@ -594,7 +594,7 @@ public class Product {
                 }                
             } else {
                 
-                if(Product.findProduct) {
+                if(ProductVetor.findProduct) {
                     break;
                 }
             } 
@@ -606,35 +606,35 @@ public class Product {
     // It's impossible for the stock to show a negative inventory
     public static void removeInventory() {
         
-        Product.displayProducts();
+        ProductVetor.displayProducts();
         
         int idProduct;
         int quantityItemsProduct = 0;
-        Product.findProduct = false;
+        ProductVetor.findProduct = false;
         
         Scanner keyboard = new Scanner(System.in);
        
-        while (!Product.findProduct) {
+        while (!ProductVetor.findProduct) {
             
             System.out.println();
             System.out.println("Type the ID of the product that would you like to remove items from inventory: ");
             idProduct = keyboard.nextInt();
 
-            if (idProduct < 0 || idProduct > Product.MAX_PRODUCTS) {
+            if (idProduct < 0 || idProduct > ProductVetor.MAX_PRODUCTS) {
                     
                 System.out.println();
                 System.out.println("[ERROR] There is no negative ID and/or non-existent ID.");
                 break;
 
-            } else if (idProduct >= 0 || idProduct > Product.MAX_PRODUCTS) {
+            } else if (idProduct >= 0 || idProduct > ProductVetor.MAX_PRODUCTS) {
                 
-                if(Product.tableProducts[idProduct] == null || Product.tableProducts[idProduct].trim().isEmpty()) {
+                if(ProductVetor.tableProducts[idProduct] == null || ProductVetor.tableProducts[idProduct].trim().isEmpty()) {
                     
                     System.out.println();
                     System.out.println("[ERROR] There is no product registered.");
                     break;
                 
-                } else if (Product.tableInventoryProducts[idProduct] == 0) {
+                } else if (ProductVetor.tableInventoryProducts[idProduct] == 0) {
 
                     System.out.println();
                     System.out.println("The inventory of this product is already zeroed.");
@@ -657,19 +657,19 @@ public class Product {
                             
                             System.out.println();
                             System.out.println("The quantity of the items typed was zeroed. There is no change found."); 
-                            Product.findProduct = true;
+                            ProductVetor.findProduct = true;
                             break;
                             
-                        } else if (Product.findProduct) {
+                        } else if (ProductVetor.findProduct) {
                             break;
                             
                         } else {
                             
-                            Product.tableInventoryProducts[idProduct] = Product.tableInventoryProducts[idProduct] - quantityItemsProduct;
+                            ProductVetor.tableInventoryProducts[idProduct] = ProductVetor.tableInventoryProducts[idProduct] - quantityItemsProduct;
                             
-                            if(Product.tableInventoryProducts[idProduct] < 0) {
+                            if(ProductVetor.tableInventoryProducts[idProduct] < 0) {
                                 
-                                Product.tableInventoryProducts[idProduct] = 0;
+                                ProductVetor.tableInventoryProducts[idProduct] = 0;
                                 System.out.println();
                                 System.out.println("[ATTENTION] The quantity was typed EXCEEDED the inventory ifo the product for removing!");
                                 System.out.println("[ATTENTION] However, the product has its inventory reseted to zero, cause it's impossivel go to negative!");
@@ -679,7 +679,7 @@ public class Product {
 
                             System.out.println();
                             System.out.println("The quantity was removed from the product successfully!");
-                            Product.findProduct = true;
+                            ProductVetor.findProduct = true;
                             break;
                         }
 
@@ -688,7 +688,7 @@ public class Product {
                 
             } else {
                 
-                if(Product.findProduct) {
+                if(ProductVetor.findProduct) {
                     break;
                 }
             } 
@@ -698,7 +698,7 @@ public class Product {
     // Product
     public static void main(String[] args) {
         
-        Product.login();
+        ProductVetor.login();
 
     }
 

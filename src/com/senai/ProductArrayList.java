@@ -1,19 +1,17 @@
 package com.senai;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Scanner;
 
 /**
  *
  * @author Camila
  */
-public class ProductArray {
+public class ProductArrayList {
 
     private static ArrayList<String> productList = new ArrayList<>();
     private static ArrayList<String> productClassificationList = new ArrayList<>();
-    private static ArrayList<Integer> productInventoryList = new ArrayList<>();
+    private static ArrayList<Integer> productStockList = new ArrayList<>();
     private static boolean hasRegisteredProduct = false;    
 
     public static void main(String[] args) {
@@ -59,7 +57,6 @@ public class ProductArray {
                         printProductSorting(input);
                     } else {
                         System.out.println("There is no product registered. You should do it first!");
-<<<<<<< HEAD
                     }
                     break;
                 case 6:
@@ -67,20 +64,18 @@ public class ProductArray {
                         printProductClassification(input);
                     } else {
                         System.out.println("There is no product registered. You should do it first!");
-=======
->>>>>>> 6264405306cba1582221c7748266c7cb657202c0
                     }
                     break;
                 case 7:
                     if (hasRegisteredProduct) {
-                        addInventory(input);
+                        addItemStock(input);
                     } else {
                         System.out.println("There is no product registered. You should do it first!");
                     }
                     break;
                 case 8:
                     if (hasRegisteredProduct) {
-                        removedInventory(input);
+                        removeItemInventory(input);
                     } else {
                         System.out.println("There is no product registered. You should do it first!");
                     }
@@ -108,19 +103,11 @@ public class ProductArray {
             try {
                 System.out.println("");
                 System.out.println("Input the username: ");
-<<<<<<< HEAD
                 user = input.nextLine();
 
                 System.out.println("");
                 System.out.println("Input the password: ");
                 password = input.nextLine();
-=======
-                user = entrada.nextLine();
-
-                System.out.println("");
-                System.out.println("Input the password: ");
-                password = entrada.nextLine();
->>>>>>> 6264405306cba1582221c7748266c7cb657202c0
 
                 if (userDataBase.equals(user) && passwordDataBase.equals(password)) {
                     loginValid = true;
@@ -151,14 +138,14 @@ public class ProductArray {
             System.out.println("");
             System.out.println("""
                                [1] Insert product
-                               [2] Update product 
+                               [2] Update description product 
                                [3] Remove product 
                                [4] Display all products 
                                [5] Display all products by sorting
                                [6] Display all products by classification
-                               [7] Add inventory 
-                               [8] Remove inventory 
-                               [9] Exit 
+                               [7] Add product item to stock 
+                               [8] Remove product item from stock
+                               [9] EXIT
                                """);
             System.out.println("------------------------------------------");
             System.out.println("");
@@ -231,7 +218,7 @@ public class ProductArray {
 
                             System.out.println("The product was successfully registered!");
                             productList.add(product);
-                            productInventoryList.add(0);
+                            productStockList.add(0);
                             insertedProduct = true;
                             hasRegisteredProduct = true;
                         } else {
@@ -255,266 +242,8 @@ public class ProductArray {
         return insertedProduct;
 
     }
-
-    public static void printProduct() {
-
-        System.out.println("");
-        System.out.println("ID | CLASSIFICATION | PRODUCT DESCRIPTION | ITEMS IN INVENTORY");
-        //Collections.sort(ProductArray.productList);
-        //System.out.println(ProductArray.productList);
-        
-        if(!productList.isEmpty()) {
-
-            for (int i = 0; i < productList.size(); i++) {
-
-                System.out.printf("%s | %s | %s | %s \n",
-                        i,
-                        productClassificationList.get(i),
-                        productList.get(i),
-                        productInventoryList.get(i)
-                );
-
-            }
-            
-            hasRegisteredProduct = true;
-        } else {            
-            System.out.println("There is no product registered!");                    
-        }
-
-    }
     
-    public static boolean printProductSorting(Scanner input) {
-        
-        boolean productSorted = false;
-        int option;
-        
-        System.out.println("");
-<<<<<<< HEAD
-        System.out.println("[1] Sort ASC by product ID");
-        System.out.println("[2] Sort DESC by product ID");
-        System.out.println("[3] Back to the menu");
-=======
-        System.out.println("[1] Sort ASC by product description");
-        System.out.println("[2] Sort DESC by product description");
-        System.out.println("[3] Sort DESC by product ID");
-        System.out.println("[4] Back to the menu");
->>>>>>> 6264405306cba1582221c7748266c7cb657202c0
-        
-        while(!productSorted) {
-            
-            System.out.println("");
-            System.out.println("Input an option to sort info: ");
-            option = input.nextInt();
-            
-            switch (option) {
-                case 1:                    
-<<<<<<< HEAD
-                    printProduct();
-                    productSorted = true;
-                    break;
-                case 2:
-                    if (!productList.isEmpty()) {
-                        System.out.println("");
-                        System.out.println("ID | CLASSIFICATION | PRODUCT DESCRIPTION | ITEMS IN INVENTORY");
-
-                        for (int i = productList.size() - 1; i >= 0; i--) {
-
-                            System.out.printf("%s | %s | %s | %s \n",
-                                    i,
-                                    productClassificationList.get(i),
-                                    productList.get(i),
-                                    productInventoryList.get(i));
-                        }
-                    } else {
-                        System.out.println("There is no product registered!");
-                    }
-                    productSorted = true;
-                    break;
-                case 3:
-=======
-                    //Collections.sort(productList);
-                    //printProduct(); 
-                    produtoOrdenado = true;
-                    break;
-                case 2:
-                    //Collections.sort(productList, Collections.reverseOrder());
-                    //printProduct();   
-                    
-                    produtoOrdenado = true;
-                    break;
-                case 3:
-                    //Collections.sort(productList, Comparator.reverseOrder());
-                    //printProduct();                                        
-                    produtoOrdenado = true;
-                    break;
-                case 4:
->>>>>>> 6264405306cba1582221c7748266c7cb657202c0
-                    System.out.println("Back to the menu...");
-                    productSorted = true;
-                    break;
-                default: 
-                    System.out.println("[WARNING] Invalid option. Try again...");
-                    input.next();
-                            
-            }            
-            
-        }
-        
-        return productSorted;   
-    }
-    
-    public static boolean printProductClassification(Scanner input) {
-        
-        boolean classifiedProduct = false;        
-        int option;
-        
-        System.out.println("");
-        System.out.println("---------- FILTER BY PRODUCT CLASSIFICATION ----------");
-        System.out.println("");
-        System.out.println("""
-                               [1] First line
-                               [2] Regular line
-                               [3] Second line
-                               [4] Sorting all of them
-                               [4] Back to the menu
-                               """);
-        System.out.println("-------------------------------------------");
-
-        
-        while(!classifiedProduct) {
-            
-            System.out.println("");
-            System.out.println("Input an option to filter info: ");
-            option = input.nextInt();
-            
-            switch (option) {
-                case 1:                    
-                    if (!productList.isEmpty() && productClassificationList.contains("First line")) {
-                        System.out.println("");
-                        System.out.println("ID | CLASSIFICATION | PRODUCT DESCRIPTION | ITEMS IN INVENTORY");
-
-                        for (int i = productList.size() - 1; i >= 0; i--) {
-
-                            if (productClassificationList.contains("First line")) {
-
-                                System.out.printf("%s | %s | %s | %s \n",
-                                        i,
-                                        productClassificationList.get(i),
-                                        productList.get(i),
-                                        productInventoryList.get(i));
-                            }
-                        }
-                    } else {
-                        System.out.println("There is no product registered with First line classification!");
-                    }
-                    classifiedProduct = true;
-                    break;
-                case 2:
-                    if (!productList.isEmpty() && productClassificationList.contains("Regular line")) {
-                        System.out.println("");
-                        System.out.println("ID | CLASSIFICATION | PRODUCT DESCRIPTION | ITEMS IN INVENTORY");
-
-                        for (int i = productList.size() - 1; i >= 0; i--) {
-
-                            if (productClassificationList.contains("Regular line")) {
-
-                                System.out.printf("%s | %s | %s | %s \n",
-                                        i,
-                                        productClassificationList.get(i),
-                                        productList.get(i),
-                                        productInventoryList.get(i));
-                            }
-                        }
-                    } else {
-                        System.out.println("There is no product registered with First line classification!");
-                    }
-                    classifiedProduct = true;
-                    break;
-                case 3:
-                    if (!productList.isEmpty() && productClassificationList.contains("Second line")) {
-                        System.out.println("");
-                        System.out.println("ID | CLASSIFICATION | PRODUCT DESCRIPTION | ITEMS IN INVENTORY");
-
-                        for (int i = productList.size() - 1; i >= 0; i--) {
-
-                            if (productClassificationList.contains("Regular line")) {
-
-                                System.out.printf("%s | %s | %s | %s \n",
-                                        i,
-                                        productClassificationList.get(i),
-                                        productList.get(i),
-                                        productInventoryList.get(i));
-                            }
-                        }
-                    } else {
-                        System.out.println("There is no product registered with First line classification!");
-                    }
-                    classifiedProduct = true;
-                    break;
-                case 4:
-                    if (!productList.isEmpty() && productClassificationList.contains("First line")) {
-                        System.out.println("");
-                        System.out.println("ID | CLASSIFICATION | PRODUCT DESCRIPTION | ITEMS IN INVENTORY");
-
-                        for (int i = productList.size() - 1; i >= 0; i--) {
-
-                            if (productClassificationList.contains("First line")) {
-
-                                System.out.printf("%s | %s | %s | %s \n",
-                                        i,
-                                        productClassificationList.get(i),
-                                        productList.get(i),
-                                        productInventoryList.get(i));
-                            }
-                        }
-                    } else if (!productList.isEmpty() && productClassificationList.contains("Regular line")) {
-                        
-                        for (int i = productList.size() - 1; i >= 0; i--) {
-
-                            if (productClassificationList.contains("Regular line")) {
-
-                                System.out.printf("%s | %s | %s | %s \n",
-                                        i,
-                                        productClassificationList.get(i),
-                                        productList.get(i),
-                                        productInventoryList.get(i));
-                            }
-                        }
-                    } else if (!productList.isEmpty() && productClassificationList.contains("Second line")) {
-                        
-                        for (int i = productList.size() - 1; i >= 0; i--) {
-
-                            if (productClassificationList.contains("Second line")) {
-
-                                System.out.printf("%s | %s | %s | %s \n",
-                                        i,
-                                        productClassificationList.get(i),
-                                        productList.get(i),
-                                        productInventoryList.get(i));
-                            }
-                        }
-                    } else {
-                        System.out.println("There is no product registered with First line classification!");
-                    }
-                    classifiedProduct = true;
-                    break;
-                case 5:
-                    System.out.println("Back to the menu...");
-                    classifiedProduct = true;
-                    break;
-                default: 
-                    System.out.println("[WARNING] Invalid option. Try again...");
-                    input.next();
-                            
-            }            
-            
-        }
-        
-        return classifiedProduct; 
-        
-    }
-
-    public static boolean updateProduct(Scanner input) {
+     public static boolean updateProduct(Scanner input) {
 
         boolean updatedProduct = false;
         int productID;
@@ -569,7 +298,7 @@ public class ProductArray {
 
         boolean deletedProduct = false;
         int productID;
-        
+
         printProduct();
 
         while (!deletedProduct) {
@@ -585,7 +314,7 @@ public class ProductArray {
 
                     productList.remove(productID);
                     productClassificationList.remove(productID);
-                    productInventoryList.remove(productID);
+                    productStockList.remove(productID);
                     deletedProduct = true;
 
                 } else {
@@ -603,9 +332,240 @@ public class ProductArray {
 
     }
 
-    public static boolean addInventory(Scanner input) {
+    public static void printProduct() {
 
-        boolean addedInventory = false;
+        System.out.println("");
+        System.out.println("ID | CLASSIFICATION  | PRODUCT DESCRIPTION | ITEMS IN INVENTORY");
+
+        if(!productList.isEmpty()) {
+
+            for (int i = 0; i < productList.size(); i++) {
+
+                System.out.printf("%-2s | %-15s | %-20s | %-18s \n",
+                        i,
+                        productClassificationList.get(i),
+                        productList.get(i),
+                        productStockList.get(i)
+                );
+
+            }
+            
+            hasRegisteredProduct = true;
+        } else {            
+            System.out.println("There is no product registered!");                    
+        }
+
+    }
+    
+    public static boolean printProductSorting(Scanner input) {
+        
+        boolean productSorted = false;
+        int option;
+        
+        System.out.println("");
+        System.out.println("[1] Sort ASC by product ID");
+        System.out.println("[2] Sort DESC by product ID");
+        System.out.println("[3] Back to the menu");
+        
+        while(!productSorted) {
+            
+            System.out.println("");
+            System.out.println("Input an option to sort info: ");
+            option = input.nextInt();
+            
+            switch (option) {
+                case 1:                    
+                    printProduct();
+                    productSorted = true;
+                    break;
+                case 2:
+                    if (!productList.isEmpty()) {
+                        System.out.println("");
+                        System.out.println("ID | CLASSIFICATION  | PRODUCT DESCRIPTION | ITEMS IN INVENTORY");
+
+                        for (int i = productList.size() - 1; i >= 0; i--) {
+
+                            System.out.printf("%-2s | %-15s | %-20s | %-18s \n",
+                                    i,
+                                    productClassificationList.get(i),
+                                    productList.get(i),
+                                    productStockList.get(i));
+                        }
+                    } else {
+                        System.out.println("There is no product registered!");
+                    }
+                    productSorted = true;
+                    break;
+                case 3:
+                    System.out.println("Back to the menu...");
+                    productSorted = true;
+                    break;
+                default: 
+                    System.out.println("[WARNING] Invalid option. Try again...");
+                    input.next();
+                            
+            }            
+            
+        }
+        
+        return productSorted;   
+    }
+
+    public static boolean printProductClassification(Scanner input) {
+
+        boolean classifiedProduct = false;
+        int option;
+
+        System.out.println("");
+        System.out.println("---------- FILTER BY PRODUCT CLASSIFICATION ----------");
+        System.out.println("");
+        System.out.println("""
+                               [1] First line
+                               [2] Regular line
+                               [3] Second line
+                               [4] Sorting by all of them
+                               [4] Back to the menu
+                               """);
+        System.out.println("-------------------------------------------");
+
+
+        while(!classifiedProduct) {
+
+            System.out.println("");
+            System.out.println("Input an option to filter info: ");
+            option = input.nextInt();
+
+            switch (option) {
+                case 1:
+                    if ((!productList.isEmpty()) && productClassificationList.contains("First line")) {
+                        System.out.println("");
+                        System.out.println("ID | CLASSIFICATION  | PRODUCT DESCRIPTION | ITEMS IN INVENTORY");
+
+                        for (int i = productList.size() - 1; i >= 0; i--) {
+
+                            if ("First line".equals(productClassificationList.get(i))) {
+
+                                System.out.printf("%-2s | %-15s | %-20s | %-18s \n",
+                                        i,
+                                        productClassificationList.get(i),
+                                        productList.get(i),
+                                        productStockList.get(i));
+                            }
+                        }
+                    } else {
+                        System.out.println("There is no product registered with First line classification!");
+                    }
+                    classifiedProduct = true;
+                    break;
+                case 2:
+                    if ((!productList.isEmpty()) && productClassificationList.contains("Regular line")) {
+
+                        System.out.println("");
+                        System.out.println("ID | CLASSIFICATION  | PRODUCT DESCRIPTION | ITEMS IN INVENTORY");
+
+                        for (int i = productList.size() - 1; i >= 0; i--) {
+
+                            if ("Regular line".equals(productClassificationList.get(i))) {
+
+                                System.out.printf("%-2s | %-15s | %-20s | %-18s \n",
+                                        i,
+                                        productClassificationList.get(i),
+                                        productList.get(i),
+                                        productStockList.get(i));
+                            }
+                        }
+                    } else {
+                        System.out.println("There is no product registered with Regular line classification!");
+                    }
+                    classifiedProduct = true;
+                    break;
+                case 3:
+                    if ((!productList.isEmpty()) && productClassificationList.contains("Second line")) {
+
+                        System.out.println("");
+                        System.out.println("ID | CLASSIFICATION  | PRODUCT DESCRIPTION | ITEMS IN INVENTORY");
+
+                        for (int i = productList.size() - 1; i >= 0; i--) {
+
+                            if ("Second line".equals(productClassificationList.get(i))) {
+
+                                System.out.printf("%-2s | %-15s | %-20s | %-18s \n",
+                                        i,
+                                        productClassificationList.get(i),
+                                        productList.get(i),
+                                        productStockList.get(i));
+                            }
+                        }
+                    } else {
+                        System.out.println("There is no product registered with Second line classification!");
+                    }
+                    classifiedProduct = true;
+                    break;
+                case 4:
+                    if ((!productList.isEmpty()) && productClassificationList.contains("First line") || productClassificationList.contains("Regular line") || productClassificationList.contains("Second line")) {
+
+                        System.out.println("");
+                        System.out.println("ID | CLASSIFICATION  | PRODUCT DESCRIPTION | ITEMS IN INVENTORY");
+
+                        for (int i = productList.size() - 1; i >= 0; i--) {
+
+                            if ("First line".equals(productClassificationList.get(i))) {
+
+                                System.out.printf("%-2s | %-15s | %-20s | %-18s \n",
+                                        i,
+                                        productClassificationList.get(i),
+                                        productList.get(i),
+                                        productStockList.get(i));
+                            }
+                        }
+
+                        for (int i = productList.size() - 1; i >= 0; i--) {
+
+                            if ("Regular line".equals(productClassificationList.get(i))) {
+
+                                System.out.printf("%-2s | %-15s | %-20s | %-18s \n",
+                                        i,
+                                        productClassificationList.get(i),
+                                        productList.get(i),
+                                        productStockList.get(i));
+                            }
+                        }
+
+                        for (int i = productList.size() - 1; i >= 0; i--) {
+
+                            if ("Second line".equals(productClassificationList.get(i))) {
+
+                                System.out.printf("%-2s | %-15s | %-20s | %-18s \n",
+                                        i,
+                                        productClassificationList.get(i),
+                                        productList.get(i),
+                                        productStockList.get(i));
+                            }
+                        }
+                    } else {
+                        System.out.println("There is no product registered with First line classification!");
+                    }
+                    classifiedProduct = true;
+                    break;
+                case 5:
+                    System.out.println("Back to the menu...");
+                    classifiedProduct = true;
+                    break;
+                default:
+                    System.out.println("[WARNING] Invalid option. Try again...");
+                    input.next();
+
+            }
+
+        }
+
+        return classifiedProduct;
+
+    }
+
+    public static boolean addItemStock(Scanner input) {
+
+        boolean itemAddedStock = false;
         int productID;
         int numberItems;
         int numberItemsCurrent;
@@ -613,10 +573,10 @@ public class ProductArray {
 
         printProduct();
         
-        while (!addedInventory) {
+        while (!itemAddedStock) {
 
             System.out.println("");
-            System.out.println("Input the product ID to add inventory: ");
+            System.out.println("Input the product ID to add item to stock: ");
 
             try {
                 productID = input.nextInt();
@@ -624,7 +584,7 @@ public class ProductArray {
                 if (productID >= 0 && productID < productList.size()) {
 
                     System.out.println("");
-                    System.out.printf("Input how many items do you would to add inventory of the product %s: ",
+                    System.out.printf("Input how many items do you would to add stock of the product %s: ",
                             productList.get(productID)
                     );
 
@@ -633,13 +593,13 @@ public class ProductArray {
 
                         if (numberItems == 0) {
                             System.out.println("No items have been added to the product.");
-                            addedInventory = true;
+                            itemAddedStock = true;
                         } else if (numberItems > 0) {
-                            numberItemsCurrent = productInventoryList.get(productID);
+                            numberItemsCurrent = productStockList.get(productID);
                             numberItemsNew = numberItemsCurrent + numberItems;
-                            productInventoryList.set(productID, numberItemsNew);
-                            System.out.println("Quantity of items were successfully added!");
-                            addedInventory = true;
+                            productStockList.set(productID, numberItemsNew);
+                            System.out.println("Quantity of items were successfully added to stock!");
+                            itemAddedStock = true;
                         } else {
                             throw new Exception();
                         }
@@ -659,13 +619,13 @@ public class ProductArray {
 
         }
 
-        return addedInventory;
+        return itemAddedStock;
 
     }
 
-    public static boolean removedInventory(Scanner input) {
+    public static boolean removeItemInventory(Scanner input) {
 
-        boolean removedIntentory = false;
+        boolean ItemRemovedStock = false;
         int productID;
         int numberItems;
         int numberItemsCurrent;
@@ -673,24 +633,24 @@ public class ProductArray {
         
         printProduct();
 
-        while (!removedIntentory) {
+        while (!ItemRemovedStock) {
 
             System.out.println("");
-            System.out.println("Input the product ID to remove inventory: ");
+            System.out.println("Input the product ID to remove from stock: ");
 
             try {
                 productID = input.nextInt();
 
                 if (productID >= 0 && productID < productList.size()) {
 
-                    if (productInventoryList.get(productID) == 0) {
+                    if (productStockList.get(productID) == 0) {
                         System.out.println("[WARNING] This product is alreary out of stock!");
-                        removedIntentory = true;
+                        ItemRemovedStock = true;
 
                     } else {
 
                         System.out.println("");
-                        System.out.printf("Input how many items do you would to remove inventory of the product %s: ",
+                        System.out.printf("Input how many items do you would to remove from stock of the product %s: ",
                             productList.get(productID));
 
                         try {
@@ -699,26 +659,26 @@ public class ProductArray {
 
                             if (numberItems == 0) {
 
-                                System.out.println("[WARNING] Quantity ZERO cannot be removed from inventory.");
-                                removedIntentory = true;
+                                System.out.println("[WARNING] Quantity ZERO cannot be removed from stock.");
+                                ItemRemovedStock = true;
 
                             } else if (numberItems > 0) {
 
-                                numberItemsCurrent = productInventoryList.get(productID);
+                                numberItemsCurrent = productStockList.get(productID);
                                 numberItemsNew = numberItemsCurrent - numberItems;
 
                                 if (numberItemsNew < 0) {
                                     System.out.println("""
-                                                       [ATTENTION] The quantity of items reported was HIGHER than the quantity of items in inventory. 
-                                                       As a result, the product's inventory has been reset to zero so as not to become negative, in accordance with Compliance rules. 
+                                                       [ATTENTION] The quantity of items reported was HIGHER than the quantity of items in stock. 
+                                                       As a result, the product's stock has been reset to zero so as not to become negative, in accordance with Compliance rules. 
                                                        """);
-                                    productInventoryList.set(productID, 0);
+                                    productStockList.set(productID, 0);
                                 } else {
-                                    productInventoryList.set(productID, numberItemsNew);
+                                    productStockList.set(productID, numberItemsNew);
                                 }
 
-                                System.out.println("Quantity of items were successfully removed!!");
-                                removedIntentory = true;
+                                System.out.println("Quantity of items were successfully removed from stock!!");
+                                ItemRemovedStock = true;
 
                             } else {
                                 throw new Exception();                               
@@ -740,7 +700,7 @@ public class ProductArray {
 
         }
 
-        return removedIntentory;
+        return ItemRemovedStock;
     }
 
 }

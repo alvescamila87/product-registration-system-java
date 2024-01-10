@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="product-registration-system-java">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/product-registration-system-java.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
